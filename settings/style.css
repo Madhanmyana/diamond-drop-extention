@@ -145,7 +145,7 @@ body {
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    transform: scale(0.8);
+    transform: scale(0.65);
     /* Width handled by JS */
 }
 
@@ -342,4 +342,194 @@ body {
     opacity: 0.4;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+/* App Style Options */
+.style-options {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.style-preview {
+    display: flex;
+    gap: 3px;
+    padding: 4px;
+}
+
+.style-preview span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Default - monochrome */
+.style-preview--default span {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Colorful - solid colors */
+.style-preview--colorful span:nth-child(1) {
+    background: #10A37F;
+}
+
+.style-preview--colorful span:nth-child(2) {
+    background: #4285F4;
+}
+
+.style-preview--colorful span:nth-child(3) {
+    background: #EA4335;
+}
+
+/* Pastel - soft colors */
+.style-preview--pastel span:nth-child(1) {
+    background: #A7F3D0;
+}
+
+.style-preview--pastel span:nth-child(2) {
+    background: #BFDBFE;
+}
+
+.style-preview--pastel span:nth-child(3) {
+    background: #FEE2E2;
+}
+
+/* App style colors for preview */
+.app-icon[data-app="chatgpt"].style-colorful {
+    background: #10A37F !important;
+}
+
+.app-icon[data-app="gemini"].style-colorful {
+    background: #4285F4 !important;
+}
+
+.app-icon[data-app="drive"].style-colorful {
+    background: #FBBC04 !important;
+}
+
+.app-icon[data-app="mail"].style-colorful {
+    background: #EA4335 !important;
+}
+
+.app-icon[data-app="translate"].style-colorful {
+    background: #4285F4 !important;
+}
+
+.app-icon[data-app="search"].style-colorful {
+    background: #4285F4 !important;
+}
+
+.app-icon[data-app="telegram"].style-colorful {
+    background: #0088CC !important;
+}
+
+.app-icon[data-app="whatsapp"].style-colorful {
+    background: #25D366 !important;
+}
+
+.app-icon[data-app="notion"].style-colorful {
+    background: #000000 !important;
+}
+
+.app-icon[data-app="keep"].style-colorful {
+    background: #FBBC04 !important;
+}
+
+.app-icon[data-app="chatgpt"].style-pastel {
+    background: #D1FAE5 !important;
+}
+
+.app-icon[data-app="gemini"].style-pastel {
+    background: #DBEAFE !important;
+}
+
+.app-icon[data-app="drive"].style-pastel {
+    background: #FEF3C7 !important;
+}
+
+.app-icon[data-app="mail"].style-pastel {
+    background: #FEE2E2 !important;
+}
+
+.app-icon[data-app="translate"].style-pastel {
+    background: #DBEAFE !important;
+}
+
+.app-icon[data-app="search"].style-pastel {
+    background: #DBEAFE !important;
+}
+
+.app-icon[data-app="telegram"].style-pastel {
+    background: #BAE6FD !important;
+}
+
+.app-icon[data-app="whatsapp"].style-pastel {
+    background: #BBF7D0 !important;
+}
+
+.app-icon[data-app="notion"].style-pastel {
+    background: #F3F4F6 !important;
+}
+
+.app-icon[data-app="keep"].style-pastel {
+    background: #FEF3C7 !important;
+}
+
+.app-icon[data-app="chatgpt"].style-tinted {
+    background: #E8F5E9 !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="gemini"].style-tinted {
+    background: #E3F2FD !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="drive"].style-tinted {
+    background: #FFF8E1 !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="mail"].style-tinted {
+    background: #FFEBEE !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="translate"].style-tinted {
+    background: #E3F2FD !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="search"].style-tinted {
+    background: #E3F2FD !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="telegram"].style-tinted {
+    background: #E1F5FE !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="whatsapp"].style-tinted {
+    background: #E8F5E9 !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="notion"].style-tinted {
+    background: #ECEFF1 !important;
+    border-radius: 8px !important;
+}
+
+.app-icon[data-app="keep"].style-tinted {
+    background: #FFF8E1 !important;
+    border-radius: 8px !important;
+}
+
+.app-icon.style-minimal {
+    background: transparent !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.app-icon.style-pastel img,
+.app-icon.style-tinted img {
+    filter: invert(0) !important;
 }

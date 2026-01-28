@@ -8,6 +8,7 @@
     border-radius: 999px;
     padding: 8px 14px;
     display: flex;
+    justify-content: space-evenly;
     gap: 10px;
     opacity: 0;
     pointer-events: none;
@@ -41,8 +42,13 @@
     /* Black icons for light mode */
 }
 
+.dynamic-island.light-mode .dynamic-island__icon {
+    background: rgba(0, 0, 0, 0.12);
+    /* Visible bg for light mode */
+}
+
 .dynamic-island.light-mode .dynamic-island__icon:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.18);
 }
 
 .dynamic-island__icon {
@@ -55,8 +61,8 @@
     cursor: pointer;
     transition: transform 0.15s ease, background 0.15s ease;
     font-size: 18px;
-    background: rgba(255, 255, 255, 0.08);
-    /* Tiny subtle bg to show shape */
+    background: rgba(255, 255, 255, 0.15);
+    /* Visible bg to show icon shape */
 }
 
 /* Enlarge WhatsApp per user request */
@@ -197,4 +203,92 @@
 
 .dynamic-island-sidebar.visible {
     transform: translateX(0);
+}
+
+/* ========== APP STYLES ========== */
+
+/* Colorful Style - Solid colored backgrounds */
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="chatgpt"] {
+    background: #10A37F;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="gemini"] {
+    background: #4285F4;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="drive"] {
+    background: #FBBC04;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="mail"] {
+    background: #EA4335;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="translate"] {
+    background: #4285F4;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="search"] {
+    background: #4285F4;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="telegram"] {
+    background: #0088CC;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="whatsapp"] {
+    background: #25D366;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="notion"] {
+    background: #000000;
+}
+
+.dynamic-island.style-colorful .dynamic-island__icon[data-app="keep"] {
+    background: #FBBC04;
+}
+
+/* Pastel Style - Soft pastel backgrounds */
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="chatgpt"] {
+    background: #A7F3D0;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="gemini"] {
+    background: #BFDBFE;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="drive"] {
+    background: #FDE68A;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="mail"] {
+    background: #FECACA;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="translate"] {
+    background: #BFDBFE;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="search"] {
+    background: #BFDBFE;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="telegram"] {
+    background: #7DD3FC;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="whatsapp"] {
+    background: #86EFAC;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="notion"] {
+    background: #E5E7EB;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon[data-app="keep"] {
+    background: #FDE68A;
+}
+
+.dynamic-island.style-pastel .dynamic-island__icon img {
+    filter: invert(0);
 }

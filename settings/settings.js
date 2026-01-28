@@ -1,20 +1,34 @@
 const appConfig = [
-    { name: 'ChatGPT', icon: '../assets/icons/openai-svgrepo-com.svg' },
-    { name: 'Gemini', icon: '../assets/icons/google-gemini-icon.svg' },
-    { name: 'Drive', icon: '../assets/icons/google-drive-svgrepo-com.svg' },
-    { name: 'Mail', icon: '../assets/icons/google-mail-svgrepo-com.svg' },
-    { name: 'Translate', icon: '../assets/icons/google-translate-svgrepo-com.svg' },
-    { name: 'Search', icon: '../assets/icons/search-4-svgrepo-com.svg' },
-    { name: 'Telegram', icon: '../assets/icons/telegram-svgrepo-com.svg' },
-    { name: 'WhatsApp', icon: '../assets/icons/whatsapp-svgrepo-com.svg' },
-    { name: 'Notion', icon: '../assets/icons/notion-svgrepo-com.svg' },
-    { name: 'Keep', icon: '../assets/icons/google-keep.svg' }
+    { id: 'chatgpt', name: 'ChatGPT', icon: '../assets/icons/openai-svgrepo-com.svg' },
+    { id: 'gemini', name: 'Gemini', icon: '../assets/icons/google-gemini-icon.svg' },
+    { id: 'drive', name: 'Drive', icon: '../assets/icons/google-drive-svgrepo-com.svg' },
+    { id: 'mail', name: 'Mail', icon: '../assets/icons/google-mail-svgrepo-com.svg' },
+    { id: 'translate', name: 'Translate', icon: '../assets/icons/google-translate-svgrepo-com.svg' },
+    { id: 'search', name: 'Search', icon: '../assets/icons/search-4-svgrepo-com.svg' },
+    { id: 'telegram', name: 'Telegram', icon: '../assets/icons/telegram-svgrepo-com.svg' },
+    { id: 'whatsapp', name: 'WhatsApp', icon: '../assets/icons/whatsapp-svgrepo-com.svg' },
+    { id: 'notion', name: 'Notion', icon: '../assets/icons/notion-svgrepo-com.svg' },
+    { id: 'keep', name: 'Keep', icon: '../assets/icons/google-keep.svg' }
 ];
 
+// App colors for different styles
+const appStyleColors = {
+    colorful: {
+        chatgpt: '#10A37F', gemini: '#4285F4', drive: '#FBBC04', mail: '#EA4335',
+        translate: '#4285F4', search: '#4285F4', telegram: '#0088CC',
+        whatsapp: '#25D366', notion: '#000000', keep: '#FBBC04'
+    },
+    pastel: {
+        chatgpt: '#A7F3D0', gemini: '#BFDBFE', drive: '#FDE68A', mail: '#FECACA',
+        translate: '#BFDBFE', search: '#BFDBFE', telegram: '#7DD3FC',
+        whatsapp: '#86EFAC', notion: '#E5E7EB', keep: '#FDE68A'
+    }
+};
+
 const sizeConfig = {
-    small: { width: '248px' },
-    medium: { width: '340px' },
-    large: { width: '540px' }
+    small: { width: '240px' },
+    medium: { width: '310px' },
+    large: { width: '640px' }
 };
 
 const shapeConfig = {
@@ -28,16 +42,18 @@ let state = {
     theme: 'dark',
     islandSize: 'medium',
     iconShape: 'rounded',
+    appStyle: 'default',
     showLabels: true
 };
 
 function init() {
     // Load from storage
     if (typeof chrome !== 'undefined' && chrome.storage) {
-        chrome.storage.sync.get(['theme', 'islandSize', 'iconShape', 'showLabels'], (items) => {
+        chrome.storage.sync.get(['theme', 'islandSize', 'iconShape', 'appStyle', 'showLabels'], (items) => {
             if (items.theme) state.theme = items.theme;
             if (items.islandSize) state.islandSize = items.islandSize;
             if (items.iconShape) state.iconShape = items.iconShape;
+            if (items.appStyle) state.appStyle = items.appStyle;
             if (items.showLabels !== undefined) state.showLabels = items.showLabels;
 
             updateUI();
@@ -61,6 +77,7 @@ function updateUI() {
     updateOptionGroup('themeOptions', state.theme);
     updateOptionGroup('sizeOptions', state.islandSize);
     updateOptionGroup('shapeOptions', state.iconShape);
+    updateOptionGroup('styleOptions', state.appStyle);
 
     // Update Toggle
     const toggle = document.getElementById('labelsToggle').querySelector('.toggle-switch');
@@ -114,7 +131,15 @@ function renderPreview() {
 
         const iconBox = document.createElement('div');
         iconBox.className = 'app-icon';
+        iconBox.dataset.app = app.id;
         iconBox.style.borderRadius = radius;
+
+        // Apply app style
+        if (state.appStyle === 'colorful' && appStyleColors.colorful[app.id]) {
+            iconBox.style.background = appStyleColors.colorful[app.id];
+        } else if (state.appStyle === 'pastel' && appStyleColors.pastel[app.id]) {
+            iconBox.style.background = appStyleColors.pastel[app.id];
+        }
 
         const img = document.createElement('img');
         img.src = app.icon;
@@ -135,7 +160,7 @@ function renderPreview() {
 
 function bindEvents() {
     // Option Buttons
-    ['themeOptions', 'sizeOptions', 'shapeOptions'].forEach(id => {
+    ['themeOptions', 'sizeOptions', 'shapeOptions', 'styleOptions'].forEach(id => {
         const group = document.getElementById(id);
         group.addEventListener('click', (e) => {
             const btn = e.target.closest('.option-btn');
@@ -144,6 +169,7 @@ function bindEvents() {
                 if (id === 'themeOptions') state.theme = val;
                 if (id === 'sizeOptions') state.islandSize = val;
                 if (id === 'shapeOptions') state.iconShape = val;
+                if (id === 'styleOptions') state.appStyle = val;
 
                 save();
                 updateUI();

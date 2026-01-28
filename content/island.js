@@ -161,7 +161,7 @@
 
   /* ---------- APPLY SETTINGS ---------- */
   const applySettings = () => {
-    chrome.storage.sync.get(['theme', 'iconShape', 'islandSize', 'showLabels'], (settings) => {
+    chrome.storage.sync.get(['theme', 'iconShape', 'islandSize', 'appStyle', 'showLabels'], (settings) => {
       const island = document.querySelector('.dynamic-island');
       if (!island) return;
 
@@ -185,15 +185,20 @@
       } else if (settings.islandSize === 'large') {
         island.style.width = '540px';
       } else {
-        island.style.width = '340px';
+        island.style.width = '355px';
       }
-      island.style.justifyContent = 'flex-start';
+      island.style.justifyContent = 'space-evenly';
 
       if (settings.showLabels) {
         island.classList.add('show-labels');
       } else {
         island.classList.remove('show-labels');
       }
+
+      // Apply app style
+      island.classList.remove('style-default', 'style-colorful', 'style-pastel', 'style-tinted', 'style-minimal');
+      const appStyle = settings.appStyle || 'default';
+      island.classList.add(`style-${appStyle}`);
     });
   };
 
