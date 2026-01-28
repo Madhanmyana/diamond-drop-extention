@@ -277,6 +277,17 @@
     island.classList.add('visible');
     islandVisible = true;
     island.scrollLeft = 0;
+
+    // Disable Translate for URLs
+    const isUrl = /^(http|https):\/\//i.test(capturedText);
+    const transIcon = island.querySelector('[data-app="translate"]');
+    if (transIcon) {
+      transIcon.parentElement.classList.toggle('disabled', isUrl); // Apply to wrapper or icon?
+      // Current CSS targets .dynamic-island__icon.disabled
+      // icon variable in loop was the .dynamic-island__icon div
+      // transIcon is the div
+      transIcon.classList.toggle('disabled', isUrl);
+    }
   };
 
   const hideIsland = () => {
@@ -360,8 +371,11 @@
     if (app === 'search')
       window.open(`https://www.google.com/search?q=${q}`, '_blank');
 
-    if (app === 'translate')
+    if (app === 'translate') {
+      // Block URLs (User Request)
+      if (/^(http|https):\/\//i.test(text)) return;
       window.open(`https://translate.google.com/?text=${q}`, '_blank');
+    }
 
     // Direct Web Links
     // Telegram: Try Version Z (might support params better than A or K)
@@ -418,6 +432,23 @@
     startY = e.clientY;
 
     e.preventDefault();
+  }, true);
+
+  /* ---------- DRAG START (Links) ---------- */
+  document.addEventListener('dragstart', e => {
+    const link = e.target.closest('a');
+    if (link && link.href) {
+      e.preventDefault(); // Stop native drag ghost
+      e.stopPropagation();
+
+      isDraggingSelection = true;
+      capturedText = link.href;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      showIsland();
+      showGhost(capturedText, e.clientX, e.clientY);
+    }
   }, true);
 
   /* ---------- MOUSE MOVE ---------- */
